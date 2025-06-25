@@ -1,6 +1,6 @@
 <?php
 require('../inc/functions.php');
-$departements = getAlldepartements();
+$employees = getAllEmployees($_GET['']);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
