@@ -6,109 +6,80 @@ $departements = getAlldepartements();
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Départements - Accueil</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/bootstrap-icons/font/bootstrap-icons.css" />
     <style>
         body {
-            background-color: #f0f2f5;
-            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
         }
 
-        .header {
-            background: #0d6efd;
-            color: white;
-            padding: 2.5rem 1rem;
-            text-align: center;
-            border-bottom: 4px solid #0b5ed7;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .header h1 {
-            font-size: 2.8rem;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .header i {
-            font-size: 2.2rem;
-            margin-right: 0.5rem;
-        }
-
-        .table-wrapper {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
-        }
-
-        .table thead {
-            background-color: #0d6efd;
-            color: white;
-            font-size: 1.1rem;
-        }
-
-        .table td,
-        .table th {
-            padding: 1.2rem;
-            vertical-align: middle;
-        }
-
-        .table tbody tr:hover {
-            background-color: #f1f5ff;
+        .card {
+            border: none;
+            border-radius: 0.75rem;
         }
 
         .badge-manager {
-            background-color: #6c757d;
-            font-size: 0.9rem;
-            padding: 0.4em 0.8em;
-            margin: 0.2rem 0;
+            font-size: 0.85rem;
         }
 
-        .icon-dept {
-            color: #0d6efd;
-            font-size: 1.2rem;
-            margin-right: 0.5rem;
+        td>a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            width: 100%;
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .table-wrapper {
-                padding: 1rem;
-            }
+        tr:hover td>a {
+            background-color: #f2f4f6;
+            color: inherit;
+            text-decoration: none;
         }
     </style>
 </head>
 
 <body>
-    <header class="header">
-        <h1><i class="bi bi-diagram-3"></i> Départements</h1>
+    <header class="bg-light border-bottom py-4 mb-5 shadow-sm">
+        <div class="container text-center">
+            <h1 class="display-5 fw-semibold mb-0">
+                <i class="bi bi-diagram-3 me-2 text-secondary"></i>Départements
+            </h1>
+        </div>
     </header>
 
-    <main class="container my-5">
-        <div class="table-wrapper">
+    <main class="container">
+        <div class="card shadow-sm p-4">
             <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="text-center">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light text-center">
                         <tr>
                             <th scope="col"><i class="bi bi-hash"></i> Numéro</th>
                             <th scope="col"><i class="bi bi-building"></i> Nom</th>
-                            <th scope="col"><i class="bi bi-person-badge"></i> Managers Actuels</th>
+                            <th scope="col"><i class="bi bi-person-badge"></i> Managers</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($departements as $depart) { ?>
-                            <a href="#">
-                                <tr>
-                                    <td class="fw-bold text-center"><?= $depart['dept_no'] ?></td>
-                                    <td><i class="bi bi-buildings icon-dept"></i><?= htmlspecialchars($depart['dept_name']) ?></td>
-                                    <td>
+                        <?php foreach ($departements as $depart) {
+                            $url = "departement.php?dept_no=" . urlencode($depart['dept_no']);
+                        ?>
+                            <tr>
+                                <td class="fw-bold text-center">
+                                    <a href="<?= $url ?>">
+                                        <?= htmlspecialchars($depart['dept_no']) ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="<?= $url ?>" class="d-flex align-items-center">
+                                        <i class="bi bi-buildings text-secondary me-2"></i>
+                                        <?= htmlspecialchars($depart['dept_name']) ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="<?= $url ?>">
                                         <ul class="list-unstyled mb-0">
                                             <?php
                                             $managers = getAllManagersNow($depart['dept_no']);
@@ -116,16 +87,16 @@ $departements = getAlldepartements();
                                                 echo '<span class="text-muted fst-italic">Aucun manager</span>';
                                             } else {
                                                 foreach ($managers as $manager) {
-                                                    echo '<li><span class="badge rounded-pill badge-manager">' .
+                                                    echo '<li><span class="badge bg-secondary rounded-pill badge-manager">' .
                                                         htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
                                                         '</span></li>';
                                                 }
                                             }
                                             ?>
                                         </ul>
-                                    </td>
-                                </tr>
-                            </a>
+                                    </a>
+                                </td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>
