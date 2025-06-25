@@ -2,7 +2,17 @@
 require('../inc/functions.php');
 $dept_no = $_GET['dept_no'] ?? null;
 $departement = getDepartement($dept_no);
-$employees = getAllEmployees($dept_no);
+
+if (!$departement) {
+    header('Location: accueil.php');
+    exit;
+}
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$employees = getAllEmployees($dept_no, $page);
+$totalEmployees = countEmployees($dept_no);
+$nbPages = $totalEmployees / 20;
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,12 +29,20 @@ $employees = getAllEmployees($dept_no);
 <body class="bg-light">
 
     <header class="bg-white border-bottom shadow-sm py-4 mb-4">
-        <div class="container text-center">
-            <nav class="display-6 fw-semibold mb-0">
-                <i class="bi bi-people-fill text-danger me-2"></i>
-                Employés - <?= htmlspecialchars($departement['dept_name']) ?>
+        <nav class="container text-center">
+            <div class="container text-center">
+                <nav class="display-6 fw-semibold mb-0">
+                    <i class="bi bi-people-fill text-danger me-2"></i>
+                    Employés - <?= htmlspecialchars($departement['dept_name']) ?>
+                </nav>
+            </div>
+
+            <nav class="mt-3">
+                <a href="recherche.php?dept_no=<?= urlencode($dept_no) ?>" class="btn btn-outline-dark">
+                    <i class="bi bi-search me-1"></i> Rechercher un employé
+                </a>
             </nav>
-        </div>
+        </nav>
     </header>
 
     <main class="container">
@@ -90,6 +108,22 @@ $employees = getAllEmployees($dept_no);
 
             </nav>
         </section>
+
+        <nav class="container mt-4 d-flex justify-content-evenly">
+            <a
+                href="listeemployees.php?dept_no=<?= urlencode($dept_no) ?>&page=<?= max(1, $page - 1) ?>"
+                class="btn btn-outline-secondary <?= $page <= 1 ? 'disabled' : '' ?>">
+                <i class="bi bi-arrow-left me-1"></i> Précédent
+            </a>
+
+            <span>Page <?= $page ?></span>
+
+            <a
+                href="listeemployees.php?dept_no=<?= urlencode($dept_no) ?>&page=<?= max(1, $page + 1) ?>"
+                class="btn btn-outline-danger <?= $page >= $nbPages ? 'disabled' : '' ?>">
+                Suivant <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </nav>
     </main>
 
     <!-- Pied de page -->

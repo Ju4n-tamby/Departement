@@ -17,10 +17,16 @@ $departements = getAlldepartements();
 <body class="bg-light">
     <header class="py-4 bg-white shadow-sm border-bottom mb-4">
         <nav class="container text-center">
-            <h1 class="display-6 fw-semibold">
+            <h1 class="display-6 fw-semibold mb-2">
                 <i class="bi bi-diagram-3 me-2 text-danger"></i>Départements
             </h1>
             <p class="text-muted">Consultez la liste des départements et leurs managers actuels</p>
+
+            <nav class="mt-3">
+                <a href="recherche.php" class="btn btn-outline-dark">
+                    <i class="bi bi-search me-1"></i> Rechercher un employé
+                </a>
+            </nav>
         </nav>
     </header>
 
@@ -59,7 +65,7 @@ $departements = getAlldepartements();
                                                     echo '<li><span class="text-muted fst-italic">Aucun manager</span></li>';
                                                 } else {
                                                     foreach ($managers as $manager) {
-                                                        echo '<li><span class="badge bg-dark rounded-pill p-2">' .
+                                                        echo '<li><span class="badge bg-dark rounded-pill p-2 fs-6">' .
                                                             htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
                                                             '</span></li>';
                                                     }
