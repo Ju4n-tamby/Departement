@@ -34,7 +34,7 @@ $departements = getAlldepartements();
             width: 100%;
         }
 
-        tr:hover td>a {
+        tr:hover {
             background-color: #f2f4f6;
             color: inherit;
             text-decoration: none;
