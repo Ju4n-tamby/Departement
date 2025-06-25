@@ -26,4 +26,16 @@ function getAllManagersNow($dept_no){
     return $managers;
 }
 
+function getAllEmployees($dept_no)
+{
+    $sql = "SELECT * FROM employees WHERE dept_no='$dept_no'";
+    $news_req = mysqli_query(dbconnect(), $sql);
+    $employees = array();
+    while ($result = mysqli_fetch_assoc($news_req)) {
+        $employees[] = $result;
+    }
+    mysqli_free_result($news_req);
+    return $employees;
+}
+
 ?>
