@@ -7,100 +7,79 @@ $departements = getAlldepartements();
 
 <head>
     <meta charset="UTF-8" />
-    <title>Départements - Accueil</title>
+    <title>Départements · Annuaire</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../assets/bootstrap-icons/font/bootstrap-icons.css" />
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .card {
-            border: none;
-            border-radius: 0.75rem;
-        }
-
-        .badge-manager {
-            font-size: 0.85rem;
-        }
-
-        td>a {
-            display: block;
-            color: inherit;
-            text-decoration: none;
-            padding: 0.75rem 1rem;
-            width: 100%;
-        }
-
-        tr:hover {
-            background-color: #f2f4f6;
-            color: inherit;
-            text-decoration: none;
-        }
-    </style>
 </head>
 
-<body>
-    <header class="bg-light border-bottom py-4 mb-5 shadow-sm">
-        <div class="container text-center">
-            <h1 class="display-5 fw-semibold mb-0">
-                <i class="bi bi-diagram-3 me-2 text-secondary"></i>Départements
+<body class="bg-light">
+    <header class="py-4 bg-white shadow-sm border-bottom mb-4">
+        <nav class="container text-center">
+            <h1 class="display-6 fw-semibold">
+                <i class="bi bi-diagram-3 me-2 text-danger"></i>Départements
             </h1>
-        </div>
+            <p class="text-muted">Consultez la liste des départements et leurs managers actuels</p>
+        </nav>
     </header>
 
     <main class="container">
-        <div class="card shadow-sm p-4">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light text-center">
-                        <tr>
-                            <th scope="col"><i class="bi bi-hash"></i> Numéro</th>
-                            <th scope="col"><i class="bi bi-building"></i> Nom</th>
-                            <th scope="col"><i class="bi bi-person-badge"></i> Managers</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($departements as $depart) { ?>
+        <section class="card shadow-sm border-0">
+            <nav class="card-body p-4">
+                <article class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-danger text-center">
                             <tr>
-                                <td class="fw-bold text-center">
-                                    <a href="listeemployees.php?dept_no=<?= htmlspecialchars($depart['dept_no']) ?>">
-                                        <?= htmlspecialchars($depart['dept_no']) ?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="listeemployees.php?dept_no=<?= htmlspecialchars($depart['dept_no']) ?>" class="d-flex align-items-center">
-                                        <i class="bi bi-buildings text-secondary me-2"></i>
-                                        <?= htmlspecialchars($depart['dept_name']) ?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="listeemployees.php?dept_no=<?= htmlspecialchars($depart['dept_no']) ?>">
-                                        <ul class="list-unstyled mb-0">
-                                            <?php
-                                            $managers = getAllManagersNow($depart['dept_no']);
-                                            if (empty($managers)) {
-                                                echo '<span class="text-muted fst-italic">Aucun manager</span>';
-                                            } else {
-                                                foreach ($managers as $manager) {
-                                                    echo '<li><span class="badge bg-secondary rounded-pill badge-manager">' .
-                                                        htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
-                                                        '</span></li>';
-                                                }
-                                            }
-                                            ?>
-                                        </ul>
-                                    </a>
-                                </td>
+                                <th scope="col"><i class="bi bi-hash"></i> Numéro</th>
+                                <th scope="col"><i class="bi bi-building"></i> Nom</th>
+                                <th scope="col"><i class="bi bi-person-badge"></i> Managers</th>
                             </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($departements as $depart) { ?>
+                                <tr>
+                                    <td class="fw-bold text-center">
+                                        <a href="listeemployees.php?dept_no=<?= $depart['dept_no'] ?>" class="text-decoration-none text-dark">
+                                            <?= htmlspecialchars($depart['dept_no']) ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="listeemployees.php?dept_no=<?= $depart['dept_no'] ?>" class="d-flex align-items-center text-decoration-none text-dark">
+                                            <i class="bi bi-buildings text-danger me-2"></i>
+                                            <?= htmlspecialchars($depart['dept_name']) ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="listeemployees.php?dept_no=<?= $depart['dept_no'] ?>" class="text-decoration-none text-dark">
+                                            <ul class="list-unstyled mb-0">
+                                                <?php
+                                                $managers = getAllManagersNow($depart['dept_no']);
+                                                if (empty($managers)) {
+                                                    echo '<li><span class="text-muted fst-italic">Aucun manager</span></li>';
+                                                } else {
+                                                    foreach ($managers as $manager) {
+                                                        echo '<li><span class="badge bg-dark rounded-pill p-2">' .
+                                                            htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
+                                                            '</span></li>';
+                                                    }
+                                                }
+                                                ?>
+                                            </ul>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </article>
+            </nav>
+        </section>
     </main>
+
+    <footer class="text-center text-muted py-4 small mt-5">
+        &copy; <?= date('Y') ?> · Université / Entreprise - Tous droits réservés
+    </footer>
 </body>
 
 </html>

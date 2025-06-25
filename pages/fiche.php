@@ -3,6 +3,7 @@ require('../inc/functions.php');
 $emp_no = $_GET['emp_no'] ?? null;
 $employee = getEmployee($emp_no);
 $departement = getDepartement($employee['dept_no']);
+$salaires = getSalaires($emp_no);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,153 +15,122 @@ $departement = getDepartement($employee['dept_no']);
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="../assets/bootstrap-icons/font/bootstrap-icons.css" />
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .avatar {
-            width: 100%;
-            max-width: 180px;
-            border-radius: 50%;
-            border: 4px solid #dee2e6;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: #198754;
-        }
-
-        .info-value {
-            font-size: 1.25rem;
-        }
-    </style>
 </head>
 
-<body>
-    <header class="bg-light border-bottom py-4 mb-5 shadow-sm">
+<body class="bg-light">
+
+    <header class="bg-white border-bottom shadow-sm py-4 mb-4">
         <div class="container text-center">
             <h1 class="display-6 fw-semibold mb-0">
-                <i class="bi bi-person text-secondary me-2"></i> Fiche de l'employé N° <?= $employee['emp_no'] ?>
+                <i class="bi bi-person-circle text-danger me-2"></i> Employé N°<?= $employee['emp_no'] ?>
             </h1>
         </div>
     </header>
 
     <main class="container">
+
         <nav class="mb-4">
             <a href="listeemployees.php?dept_no=<?= $employee['dept_no'] ?>" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i> Retour à la liste des employés
+                <i class="bi bi-arrow-left me-1"></i> Retour
             </a>
         </nav>
 
-        <section class="card shadow-sm border-0 p-4">
+        <section class="card shadow-sm border-0 p-4 mb-5">
             <article class="row align-items-center">
-                <figure class="col-md-4 text-center mb-3 mb-md-0">
-                    <img src="../assets/bootstrap-icons/icons/person-circle.svg" alt="Avatar" class="avatar">
+                <figure class="col-md-4 text-center mb-4 mb-md-0">
+                    <img src="../assets/bootstrap-icons/icons/person-circle.svg" alt="Avatar" class="w-100 rounded-circle border border-3 border-secondary" style="max-width: 180px;">
                 </figure>
                 <figcaption class="col-md-8">
-                    <nav class="mb-3">
-                        <span class="info-label">Nom :&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <span class="info-value ms-2"><?= htmlspecialchars($employee['first_name']) ?></span>
-                    </nav>
-                    <nav class="mb-3">
-                        <span class="info-label">Prénom :&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <span class="info-value ms-2"><?= htmlspecialchars($employee['last_name']) ?></span>
-                    </nav>
-                    <nav class="mb-3">
-                        <span class="info-label">Genre :&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <span class="info-value ms-2">
-                            <?php
-                            echo match ($employee['gender']) {
-                                'M' => '<i class="bi bi-gender-male text-primary" title="Homme"></i> Homme',
-                                'F' => '<i class="bi bi-gender-female text-danger" title="Femme"></i> Femme',
-                                default => '<i class="bi bi-gender-ambiguous text-secondary" title="Autre"></i> Autre',
-                            };
-                            ?>
+                    <div class="mb-3">
+                        <span class="fw-bold text-success">Nom :</span>
+                        <span class="ms-2"><?= htmlspecialchars($employee['first_name']) ?></span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-success">Prénom :</span>
+                        <span class="ms-2"><?= htmlspecialchars($employee['last_name']) ?></span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-success">Genre :</span>
+                        <span class="ms-2">
+                            <?= match ($employee['gender']) {
+                                'M' => '<i class="bi bi-gender-male text-primary"></i> Homme',
+                                'F' => '<i class="bi bi-gender-female text-danger"></i> Femme',
+                                default => '<i class="bi bi-gender-ambiguous text-muted"></i> Autre',
+                            }; ?>
                         </span>
-                    </nav>
-                    <nav class="mb-3">
-                        <span class="info-label">Âge :</span>
-                        <span class="info-value ms-2 text-muted">
-                            <?= getAge($employee['birth_date']) . " ans" ?>
-                        </span>
-                    </nav>
-                    <nav class="mb-3">
-                        <span class="info-label">Département :</span>
-                        <span class="info-value ms-2">
-                            <a href="listeemployees.php?dept_no=<?= $employee['dept_no'] ?>" class="text-decoration-none">
-                                <i class="bi bi-building me-1"></i> <?= htmlspecialchars($departement['dept_name']) ?>
-                            </a>
-                        </span>
-                    </nav>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-success">Âge :</span>
+                        <span class="ms-2 text-muted"><?= $employee['age'] ?> ans</span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold text-success">Département :</span>
+                        <a href="listeemployees.php?dept_no=<?= $employee['dept_no'] ?>" class="ms-2 text-decoration-none">
+                            <i class="bi bi-building me-1"></i><?= htmlspecialchars($departement['dept_name']) ?>
+                        </a>
+                    </div>
                 </figcaption>
             </article>
-            <hr>
-            <article class="container-fluid p-5 d-flex flex-wrap justify-content-between">
-                <nav class="col-lg-6 col-xs-12 mb-3 px-3">
-                    <h2 class="text-center text-secondary my-3 fw-bold">Informations suplementaires :</h2>
-                    <nav class="mb-3">
-                        <span class="info-label">Date de naissance :</span>
-                        <span class="info-value"><?= $employee['birth_date'] ?></span>
-                    </nav>
 
-                    <nav class="mb-3">
-                        <span class="info-label">Date d'embauche :</span>
-                        <span class="info-value ms-2 text-muted">
-                            <i class="bi bi-calendar-event me-1"></i>
-                            <?= date('d/m/Y', strtotime($employee['hire_date'])) ?>
+            <hr class="my-5" />
+
+            <article class="row gy-4">
+                <section class="col-lg-6">
+                    <h2 class="text-center text-secondary fw-bold mb-4">Informations supplémentaires</h2>
+                    <div class="mb-3">
+                        <span class="fw-bold">Date de naissance :</span>
+                        <span class="ms-2"><?= $employee['birth_date'] ?></span>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold">Date d'embauche :</span>
+                        <span class="ms-2 text-muted">
+                            <i class="bi bi-calendar-event me-1"></i><?= date('d/m/Y', strtotime($employee['hire_date'])) ?>
                         </span>
-                    </nav>
+                    </div>
+                    <div class="mb-3">
+                        <span class="fw-bold">Emploi :</span>
+                        <span class="ms-2"><?= getJob($emp_no) ?></span>
+                    </div>
+                </section>
 
-                    <nav class="mb-3">
-                        <span class="info-label">Emploi :</span>
-                        <span class="info-value"><?= getJob($emp_no) ?></span>
-                    </nav>
-                </nav>
+                <section class="col-lg-6">
+                    <div class="bg-dark text-white rounded p-3">
+                        <h2 class="text-center text-danger fw-bold mb-4">Historique des salaires</h2>
+                        <?php
+                        $count = count($salaires);
+                        for ($i = 0; $i < $count; $i++) {
+                            $actuel = $salaires[$i]['salary'];
+                            $periode = $salaires[$i]['from_date'] . ' – ' . $salaires[$i]['to_date'];
+                            $classe = 'text-success';
+                            $variation = '';
 
-                <nav class="col-lg-6 col-xs-12 px-3 mb-3 border bg-dark rounded">
-                    <h2 class="text-center text-danger fw-bold my-3">Historique des salaires :</h2>
-
-                    <?php
-                    $salaires = getSalaires($emp_no);
-                    $count = count($salaires);
-
-                    for ($i = 0; $i < $count; $i++) {
-                        $salaireActuel = $salaires[$i]['salary'];
-                        $periode = $salaires[$i]['from_date'] . ' - ' . $salaires[$i]['to_date'];
-
-                        $variation = '';
-                        $classe = 'text-success';
-
-                        if ($i > 0) {
-                            $prev = $salaires[$i - 1]['salary'];
-
-                            if ($salaireActuel > $prev) {
-                                $variation = '<i class="bi bi-arrow-up-circle-fill text-success ms-2" title="Augmentation"></i>';
-                                $classe = 'text-success fw-semibold';
-                            } elseif ($salaireActuel < $prev) {
-                                $variation = '<i class="bi bi-arrow-down-circle-fill text-danger ms-2" title="Diminution"></i>';
-                                $classe = 'text-danger fw-semibold';
-                            } else {
-                                $variation = '<i class="bi bi-dash-circle-fill text-muted ms-2" title="Stable"></i>';
-                                $classe = 'text-muted';
+                            if ($i > 0) {
+                                $prev = $salaires[$i - 1]['salary'];
+                                if ($actuel > $prev) {
+                                    $variation = '<i class="bi bi-arrow-up-circle-fill text-success ms-2" title="Augmentation"></i>';
+                                    $classe = 'text-success fw-semibold';
+                                } elseif ($actuel < $prev) {
+                                    $variation = '<i class="bi bi-arrow-down-circle-fill text-danger ms-2" title="Diminution"></i>';
+                                    $classe = 'text-danger fw-semibold';
+                                } else {
+                                    $variation = '<i class="bi bi-dash-circle-fill text-muted ms-2" title="Stable"></i>';
+                                    $classe = 'text-muted';
+                                }
                             }
-                        }
-                    ?>
-                        <nav class="d-flex justify-content-between align-items-center border-bottom py-3">
-                            <span class="<?= $classe ?>">
-                                <?= number_format($salaireActuel, 0, ',', ' ') ?>
-                                <?= $variation ?>
-                            </span>
-                            <span class="text-secondary small fst-italic"><?= $periode ?></span>
-                        </nav>
-                    <?php } ?>
-                </nav>
-
+                        ?>
+                            <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                <span class="<?= $classe ?>">
+                                    <?= number_format($actuel, 0, ',', ' ') ?> <?= $variation ?>
+                                </span>
+                                <span class="text-light small fst-italic"><?= $periode ?></span>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </section>
             </article>
         </section>
     </main>
+
 </body>
 
 </html>

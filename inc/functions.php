@@ -29,7 +29,7 @@ function getAllManagersNow($dept_no)
 
 function getAllEmployees($dept_no)
 {
-    $sql = "SELECT c.*, e.first_name, e.last_name, e.gender, e.birth_date FROM current_dept_emp c JOIN employees e ON e.emp_no=c.emp_no WHERE dept_no='$dept_no' LIMIT 1000";
+    $sql = "SELECT c.*, e.first_name, e.last_name, e.gender, e.birth_date FROM current_dept_emp c JOIN employees e ON e.emp_no=c.emp_no WHERE dept_no='$dept_no' LIMIT 20";
     $news_req = mysqli_query(dbconnect(), $sql);
     $employees = array();
     while ($result = mysqli_fetch_assoc($news_req)) {
@@ -53,7 +53,7 @@ function getDepartement($dept_no)
 
 function getEmployee($emp_no)
 {
-    $sql = "SELECT c.*, e.first_name, e.last_name, e.gender, e.birth_date, e.hire_date FROM current_dept_emp c JOIN employees e ON e.emp_no=c.emp_no WHERE e.emp_no='$emp_no'";
+    $sql = "SELECT c.*, e.first_name, e.last_name, e.gender, e.birth_date, e.hire_date, TIMESTAMPDIFF(YEAR, birth_date, CURDATE()) AS age FROM current_dept_emp c JOIN employees e ON e.emp_no=c.emp_no WHERE e.emp_no='$emp_no'";
     $news_req = mysqli_query(dbconnect(), $sql);
     $employee = null;
     if ($result = mysqli_fetch_assoc($news_req)) {
@@ -85,12 +85,4 @@ function getSalaires($emp_no)
     }
     mysqli_free_result($news_req);
     return $salaires;
-}
-
-function getAge(string $dateNaissance)
-{
-    $dateNaissance = new DateTime($dateNaissance);
-    $aujourdhui = new DateTime();
-    $age = $aujourdhui->diff($dateNaissance)->y;
-    return $age;
 }
