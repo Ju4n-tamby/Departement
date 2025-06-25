@@ -62,3 +62,27 @@ function getEmployee($emp_no)
     mysqli_free_result($news_req);
     return $employee;
 }
+
+function getJob($emp_no)
+{
+    $sql = "SELECT title FROM titles WHERE emp_no='$emp_no'";
+    $news_req = mysqli_query(dbconnect(), $sql);
+    $job = null;
+    if ($result = mysqli_fetch_assoc($news_req)) {
+        $job = $result['title'];
+    }
+    mysqli_free_result($news_req);
+    return $job;
+}
+
+function getSalaires($emp_no)
+{
+    $sql = "SELECT salary, from_date, to_date FROM salaries WHERE emp_no='$emp_no'";
+    $news_req = mysqli_query(dbconnect(), $sql);
+    $salaires = array();
+    while ($result = mysqli_fetch_assoc($news_req)) {
+        $salaires[] = $result;
+    }
+    mysqli_free_result($news_req);
+    return $salaires;
+}

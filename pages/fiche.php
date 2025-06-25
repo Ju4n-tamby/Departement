@@ -99,14 +99,21 @@ $departement = getDepartement($employee['dept_no']);
             </article>
             <hr>
             <article class="container-fluid p-5 d-flex flex-wrap justify-content-between">
-                <nav class="col-lg-6 col-xs-12 mb-3 px-3 border">
-                    <h2 class="text-center text-secondary fw-bold my-3">Informations suplementaires :</h2>
-                    <span class="info-label">Date de naissance :</span>
-                    <span class="info-value"><?= $employee['birth_date'] ?></span>
+                <nav class="col-lg-6 col-xs-12 mb-3 px-3">
+                    <h2 class="text-center text-secondary my-3 fw-bold">Informations suplementaires :</h2>
+                    <nav class="mb-3">
+                        <span class="info-label">Date de naissance :</span>
+                        <span class="info-value"><?= $employee['birth_date'] ?></span>
+                    </nav>
+
+                    <nav class="mb-3">
+                        <span class="info-label">Emploi :</span>
+                        <span class="info-value"><?= getJob($emp_no) ?></span>
+                    </nav>
                 </nav>
 
-                <nav class="col-lg-6 col-xs-12 mb-3 border">
-
+                <nav class="col-lg-6 col-xs-12 px-3 mb-3 border bg-dark rounded">
+                    <h2 class="text-center text-danger fw-bold my-3">Historique des saliares :</h2>
                 </nav>
             </article>
         </section>
