@@ -1,6 +1,6 @@
 <?php
 require('../inc/functions.php');
-$employees = getAllEmployees($_GET['']);
+$employees = getAllEmployees($_GET['dept_no']);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -46,7 +46,7 @@ $employees = getAllEmployees($_GET['']);
     <header class="bg-light border-bottom py-4 mb-5 shadow-sm">
         <div class="container text-center">
             <h1 class="display-5 fw-semibold mb-0">
-                <i class="bi bi-diagram-3 me-2 text-secondary"></i>Départements
+                <i class="bi bi-diagram-3 me-2 text-secondary"></i>Liste employees du departement : <?= getAll ?>
             </h1>
         </div>
     </header>

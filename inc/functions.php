@@ -38,3 +38,15 @@ function getAllEmployees($dept_no)
     mysqli_free_result($news_req);
     return $employees;
 }
+
+function getDepartement($dept_no)
+{
+    $sql = "SELECT * FROM departments WHERE dept_no='$dept_no'";
+    $news_req = mysqli_query(dbconnect(), $sql);
+    $department = null;
+    if ($result = mysqli_fetch_assoc($news_req)) {
+        $department = $result;
+    }
+    mysqli_free_result($news_req);
+    return $department;
+}
