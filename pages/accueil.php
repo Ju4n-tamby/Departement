@@ -6,12 +6,12 @@ $departements = getAlldepartements();
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Départements - Accueil</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="../assets/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../assets/bootstrap-icons/font/bootstrap-icons.css" />
     <style>
         body {
             background-color: #f8f9fa;
@@ -26,13 +26,20 @@ $departements = getAlldepartements();
             font-size: 0.85rem;
         }
 
-        .table-hover tbody tr:hover {
-            background-color: #f2f4f6;
-            cursor: pointer;
+        /* Pour que le lien remplisse toute la cellule */
+        td>a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            width: 100%;
         }
 
-        tr[data-href] {
-            transition: background-color 0.2s;
+        /* Hover sur la ligne (via lien dans chaque cellule) */
+        tr:hover td>a {
+            background-color: #f2f4f6;
+            color: inherit;
+            text-decoration: none;
         }
     </style>
 </head>
@@ -58,28 +65,38 @@ $departements = getAlldepartements();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($departements as $depart) { ?>
-                            <tr class="text-start" data-href="gay.php>
-                                <td class="fw-bold text-center"><?= $depart['dept_no'] ?></td>
-                                <td>
-                                    <i class="bi bi-buildings text-secondary me-2"></i>
-                                    <?= htmlspecialchars($depart['dept_name']) ?>
+                        <?php foreach ($departements as $depart) {
+                            $url = "departement.php?dept_no=" . urlencode($depart['dept_no']);
+                        ?>
+                            <tr>
+                                <td class="fw-bold text-center">
+                                    <a href="<?= $url ?>">
+                                        <?= htmlspecialchars($depart['dept_no']) ?>
+                                    </a>
                                 </td>
                                 <td>
-                                    <ul class="list-unstyled mb-0">
-                                        <?php
-                                        $managers = getAllManagersNow($depart['dept_no']);
-                                        if (empty($managers)) {
-                                            echo '<span class="text-muted fst-italic">Aucun manager</span>';
-                                        } else {
-                                            foreach ($managers as $manager) {
-                                                echo '<li><span class="badge bg-secondary rounded-pill badge-manager">' .
-                                                    htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
-                                                    '</span></li>';
+                                    <a href="<?= $url ?>" class="d-flex align-items-center">
+                                        <i class="bi bi-buildings text-secondary me-2"></i>
+                                        <?= htmlspecialchars($depart['dept_name']) ?>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="<?= $url ?>">
+                                        <ul class="list-unstyled mb-0">
+                                            <?php
+                                            $managers = getAllManagersNow($depart['dept_no']);
+                                            if (empty($managers)) {
+                                                echo '<span class="text-muted fst-italic">Aucun manager</span>';
+                                            } else {
+                                                foreach ($managers as $manager) {
+                                                    echo '<li><span class="badge bg-secondary rounded-pill badge-manager">' .
+                                                        htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
+                                                        '</span></li>';
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </ul>
+                                            ?>
+                                        </ul>
+                                    </a>
                                 </td>
                             </tr>
                         <?php } ?>
