@@ -77,7 +77,7 @@ function getJob($emp_no)
 
 function getSalaires($emp_no)
 {
-    $sql = "SELECT salary, from_date, to_date FROM salaries WHERE emp_no='$emp_no'";
+    $sql = "SELECT salary, from_date, to_date FROM salaries WHERE emp_no='$emp_no' GROUP BY from_date";
     $news_req = mysqli_query(dbconnect(), $sql);
     $salaires = array();
     while ($result = mysqli_fetch_assoc($news_req)) {

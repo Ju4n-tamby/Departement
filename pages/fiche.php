@@ -113,8 +113,44 @@ $departement = getDepartement($employee['dept_no']);
                 </nav>
 
                 <nav class="col-lg-6 col-xs-12 px-3 mb-3 border bg-dark rounded">
-                    <h2 class="text-center text-danger fw-bold my-3">Historique des saliares :</h2>
+                    <h2 class="text-center text-danger fw-bold my-3">Historique des salaires :</h2>
+
+                    <?php
+                    $salaires = getSalaires($emp_no);
+                    $count = count($salaires);
+
+                    for ($i = 0; $i < $count; $i++) {
+                        $salaireActuel = $salaires[$i]['salary'];
+                        $periode = $salaires[$i]['from_date'] . ' - ' . $salaires[$i]['to_date'];
+
+                        $variation = '';
+                        $classe = 'text-white';
+
+                        if ($i > 0) {
+                            $prev = $salaires[$i - 1]['salary'];
+
+                            if ($salaireActuel > $prev) {
+                                $variation = '<i class="bi bi-arrow-up-circle-fill text-success ms-2" title="Augmentation"></i>';
+                                $classe = 'text-success fw-semibold';
+                            } elseif ($salaireActuel < $prev) {
+                                $variation = '<i class="bi bi-arrow-down-circle-fill text-danger ms-2" title="Diminution"></i>';
+                                $classe = 'text-danger fw-semibold';
+                            } else {
+                                $variation = '<i class="bi bi-dash-circle-fill text-muted ms-2" title="Stable"></i>';
+                                $classe = 'text-muted';
+                            }
+                        }
+                    ?>
+                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                            <span class="<?= $classe ?>">
+                                <?= number_format($salaireActuel, 0, ',', ' ') ?>
+                                <?= $variation ?>
+                            </span>
+                            <span class="text-secondary small fst-italic"><?= $periode ?></span>
+                        </div>
+                    <?php } ?>
                 </nav>
+
             </article>
         </section>
     </main>
