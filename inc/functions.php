@@ -86,3 +86,11 @@ function getSalaires($emp_no)
     mysqli_free_result($news_req);
     return $salaires;
 }
+
+function getAge(string $dateNaissance)
+{
+    $dateNaissance = new DateTime($dateNaissance);
+    $aujourdhui = new DateTime();
+    $age = $aujourdhui->diff($dateNaissance)->y;
+    return $age;
+}

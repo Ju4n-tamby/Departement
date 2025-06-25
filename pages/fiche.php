@@ -81,18 +81,17 @@ $departement = getDepartement($employee['dept_no']);
                         </span>
                     </nav>
                     <nav class="mb-3">
+                        <span class="info-label">Âge :</span>
+                        <span class="info-value ms-2 text-muted">
+                            <?= getAge($employee['birth_date']) . " ans" ?>
+                        </span>
+                    </nav>
+                    <nav class="mb-3">
                         <span class="info-label">Département :</span>
                         <span class="info-value ms-2">
                             <a href="listeemployees.php?dept_no=<?= $employee['dept_no'] ?>" class="text-decoration-none">
                                 <i class="bi bi-building me-1"></i> <?= htmlspecialchars($departement['dept_name']) ?>
                             </a>
-                        </span>
-                    </nav>
-                    <nav class="mb-3">
-                        <span class="info-label">Date d'embauche :</span>
-                        <span class="info-value ms-2 text-muted">
-                            <i class="bi bi-calendar-event me-1"></i>
-                            <?= date('d/m/Y', strtotime($employee['hire_date'])) ?>
                         </span>
                     </nav>
                 </figcaption>
@@ -104,6 +103,14 @@ $departement = getDepartement($employee['dept_no']);
                     <nav class="mb-3">
                         <span class="info-label">Date de naissance :</span>
                         <span class="info-value"><?= $employee['birth_date'] ?></span>
+                    </nav>
+
+                    <nav class="mb-3">
+                        <span class="info-label">Date d'embauche :</span>
+                        <span class="info-value ms-2 text-muted">
+                            <i class="bi bi-calendar-event me-1"></i>
+                            <?= date('d/m/Y', strtotime($employee['hire_date'])) ?>
+                        </span>
                     </nav>
 
                     <nav class="mb-3">
@@ -124,7 +131,7 @@ $departement = getDepartement($employee['dept_no']);
                         $periode = $salaires[$i]['from_date'] . ' - ' . $salaires[$i]['to_date'];
 
                         $variation = '';
-                        $classe = 'text-white';
+                        $classe = 'text-success';
 
                         if ($i > 0) {
                             $prev = $salaires[$i - 1]['salary'];
