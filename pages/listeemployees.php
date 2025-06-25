@@ -26,18 +26,12 @@ $employees = getAllEmployees($_GET['dept_no']);
             font-size: 0.85rem;
         }
 
-        td>a {
+        td {
             display: block;
             color: inherit;
             text-decoration: none;
             padding: 0.75rem 1rem;
             width: 100%;
-        }
-
-        tr:hover td>a {
-            background-color: #f2f4f6;
-            color: inherit;
-            text-decoration: none;
         }
     </style>
 </head>
@@ -46,7 +40,7 @@ $employees = getAllEmployees($_GET['dept_no']);
     <header class="bg-light border-bottom py-4 mb-5 shadow-sm">
         <div class="container text-center">
             <h1 class="display-5 fw-semibold mb-0">
-                <i class="bi bi-diagram-3 me-2 text-secondary"></i>Liste employees du departement : <?= getAll ?>
+                <i class="bi bi-diagram-3 me-2 text-secondary"></i>Liste employees du departement : <?= getDepartement($_GET['dept_no'])['dept_name'] ?>
             </h1>
         </div>
     </header>
@@ -58,43 +52,30 @@ $employees = getAllEmployees($_GET['dept_no']);
                     <thead class="table-light text-center">
                         <tr>
                             <th scope="col"><i class="bi bi-hash"></i> Numéro</th>
-                            <th scope="col"><i class="bi bi-building"></i> Nom</th>
-                            <th scope="col"><i class="bi bi-person-badge"></i> Managers</th>
+                            <th scope="col"><i class="bi bi-building"></i> Nom et Prenom</th>
+                            <th scope="col"><i class="bi bi-person-badge"></i> Genre</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($departements as $depart) {
-                            $url = "departement.php?dept_no=" . urlencode($depart['dept_no']);
-                        ?>
+                        <?php foreach ($employees as $employee) { ?>
                             <tr>
                                 <td class="fw-bold text-center">
-                                    <a href="#?<?= htmlspecialchars($depart['dept_no']) ?>">
-                                        <?= htmlspecialchars($depart['dept_no']) ?>
-                                    </a>
+                                    <?= htmlspecialchars($employee['emp_no']) ?>
                                 </td>
                                 <td>
-                                    <a href="#?<?= htmlspecialchars($depart['dept_no']) ?>" class="d-flex align-items-center">
-                                        <i class="bi bi-buildings text-secondary me-2"></i>
-                                        <?= htmlspecialchars($depart['dept_name']) ?>
-                                    </a>
+                                    <i class="bi bi-person text-secondary me-2"></i>
+                                    <?= htmlspecialchars($employee['first_name'] . ' ' . $employee['last_name']) ?>
                                 </td>
                                 <td>
-                                    <a href="#?<?= htmlspecialchars($depart['dept_no']) ?>">
-                                        <ul class="list-unstyled mb-0">
-                                            <?php
-                                            $managers = getAllManagersNow($depart['dept_no']);
-                                            if (empty($managers)) {
-                                                echo '<span class="text-muted fst-italic">Aucun manager</span>';
-                                            } else {
-                                                foreach ($managers as $manager) {
-                                                    echo '<li><span class="badge bg-secondary rounded-pill badge-manager">' .
-                                                        htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
-                                                        '</span></li>';
-                                                }
-                                            }
-                                            ?>
-                                        </ul>
-                                    </a>
+                                    <?php
+                                    if ($depart['gender'] === 'M') {
+                                        echo '<i class="bi bi-gender-male text-primary"></i>';
+                                    } elseif ($depart['gender'] === 'F') {
+                                        echo '<i class="bi bi-gender-female text-danger"></i>';
+                                    } else {
+                                        echo '<i class="bi bi-gender-ambiguous text-secondary"></i>';
+                                    }
+                                    ?>
                                 </td>
                             </tr>
                         <?php } ?>

@@ -63,23 +63,21 @@ $departements = getAlldepartements();
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($departements as $depart) {
-                            $url = "departement.php?dept_no=" . urlencode($depart['dept_no']);
-                        ?>
+                        <?php foreach ($departements as $depart) { ?>
                             <tr>
                                 <td class="fw-bold text-center">
-                                    <a href="#?dept_no="<?= htmlspecialchars($depart['dept_no']) ?>"">
+                                    <a href="#?dept_no=" <?= htmlspecialchars($depart['dept_no']) ?>"">
                                         <?= htmlspecialchars($depart['dept_no']) ?>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="#?dept_no="<?= htmlspecialchars($depart['dept_no']) ?>"" class="d-flex align-items-center">
+                                    <a href="#?dept_no=" <?= htmlspecialchars($depart['dept_no']) ?>"" class="d-flex align-items-center">
                                         <i class="bi bi-buildings text-secondary me-2"></i>
                                         <?= htmlspecialchars($depart['dept_name']) ?>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="#?dept_no="<?= htmlspecialchars($depart['dept_no']) ?>"">
+                                    <a href="#?dept_no=" <?= htmlspecialchars($depart['dept_no']) ?>"">
                                         <ul class="list-unstyled mb-0">
                                             <?php
                                             $managers = getAllManagersNow($depart['dept_no']);
