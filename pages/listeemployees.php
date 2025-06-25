@@ -53,14 +53,14 @@ $employees = getAllEmployees($dept_no);
     </header>
 
     <main class="container">
-        <div class="mb-4">
+        <article class="mb-4">
             <a href="accueil.php" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-1"></i> Retour à la liste des départements
             </a>
-        </div>
+        </article>
 
-        <div class="card shadow-sm p-4">
-            <div class="table-responsive">
+        <section class="card shadow-sm p-4">
+            <article class="table-responsive">
                 <table class="table table-hover align-middle mb-0">
                     <thead class="table-light text-center">
                         <tr>
@@ -73,17 +73,17 @@ $employees = getAllEmployees($dept_no);
                         <?php foreach ($employees as $employee) { ?>
                             <tr class="text-start">
                                 <td class="fw-bold text-center">
-                                    <a href="fiche.php"><?= htmlspecialchars($employee['emp_no']) ?>
+                                    <a href="fiche.php?emp_no=<?= $employee['emp_no'] ?>"><?= htmlspecialchars($employee['emp_no']) ?>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="fiche.php">
+                                    <a href="fiche.php?emp_no=<?= $employee['emp_no'] ?>">
                                         <i class="bi bi-person text-secondary me-2"></i>
                                         <?= htmlspecialchars($employee['first_name'] . ' ' . $employee['last_name']) ?>
                                     </a>
                                 </td>
                                 <td class="text-center">
-                                    <a href="fiche.php">
+                                    <a href="fiche.php?emp_no=<?= $employee['emp_no'] ?>">
                                         <?php
                                         echo match ($employee['gender']) {
                                             'M' => '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>',
@@ -102,8 +102,8 @@ $employees = getAllEmployees($dept_no);
                         <?php } ?>
                     </tbody>
                 </table>
-            </div>
-        </div>
+            </article>
+        </section>
     </main>
 </body>
 
