@@ -59,7 +59,7 @@ $departements = getAlldepartements();
                     </thead>
                     <tbody>
                         <?php foreach ($departements as $depart) { ?>
-                            <tr class="text-start" data-href="#">
+                            <tr class="text-start" data-href="gay.php>
                                 <td class="fw-bold text-center"><?= $depart['dept_no'] ?></td>
                                 <td>
                                     <i class="bi bi-buildings text-secondary me-2"></i>
