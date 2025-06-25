@@ -14,52 +14,61 @@ $departements = getAlldepartements();
     <link rel="stylesheet" href="../assets/bootstrap-icons/font/bootstrap-icons.css">
     <style>
         body {
-            background: #f8f9fa;
+            background-color: #f5f5f5;
+            color: #333;
+            font-family: 'Segoe UI', sans-serif;
         }
 
         .header {
-            background: linear-gradient(135deg, #dc3545, #6f42c1);
-            color: white;
-            padding: 3rem 1rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dee2e6;
+            padding: 2rem 1rem;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 2.8rem;
-            font-weight: bold;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #212529;
+            margin-bottom: 0.5rem;
         }
 
         .table thead {
-            background-color: #343a40;
-            color: white;
+            background-color: #e9ecef;
         }
 
-        .table tbody tr:hover {
-            background-color: #f1f1f1;
+        .table-hover tbody tr:hover {
+            background-color: #f0f0f0;
         }
 
         .badge-manager {
-            background-color: #0d6efd;
-            font-size: 0.85rem;
+            background-color: #6c757d;
+            color: white;
+            font-size: 0.8rem;
+            padding: 0.4em 0.6em;
         }
 
         .table-responsive {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: white;
+            padding: 1rem;
+        }
+
+        .bi-building {
+            color: #6c757d;
         }
     </style>
 </head>
 
 <body>
     <header class="header">
-        <h1><i class="bi bi-building"></i> Liste des Départements</h1>
+        <h1><i class="bi bi-building"></i> Départements</h1>
     </header>
 
     <main class="container my-5">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
+        <div class="table-responsive shadow-sm">
+            <table class="table table-hover align-middle">
                 <thead class="text-center">
                     <tr>
                         <th scope="col">Numéro</th>
@@ -70,8 +79,8 @@ $departements = getAlldepartements();
                 <tbody>
                     <?php foreach ($departements as $depart) { ?>
                         <tr>
-                            <td class="fw-bold text-center"><?= $depart['dept_no'] ?></td>
-                            <td><?= $depart['dept_name'] ?></td>
+                            <td class="fw-semibold text-center"><?= $depart['dept_no'] ?></td>
+                            <td><?= htmlspecialchars($depart['dept_name']) ?></td>
                             <td>
                                 <ul class="list-unstyled mb-0">
                                     <?php
