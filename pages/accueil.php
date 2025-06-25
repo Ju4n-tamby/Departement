@@ -26,7 +26,6 @@ $departements = getAlldepartements();
             font-size: 0.85rem;
         }
 
-        /* Pour que le lien remplisse toute la cellule */
         td>a {
             display: block;
             color: inherit;
@@ -35,7 +34,6 @@ $departements = getAlldepartements();
             width: 100%;
         }
 
-        /* Hover sur la ligne (via lien dans chaque cellule) */
         tr:hover td>a {
             background-color: #f2f4f6;
             color: inherit;
@@ -70,18 +68,18 @@ $departements = getAlldepartements();
                         ?>
                             <tr>
                                 <td class="fw-bold text-center">
-                                    <a href="<?= $url ?>">
+                                    <a href="#">
                                         <?= htmlspecialchars($depart['dept_no']) ?>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="<?= $url ?>" class="d-flex align-items-center">
+                                    <a href="#" class="d-flex align-items-center">
                                         <i class="bi bi-buildings text-secondary me-2"></i>
                                         <?= htmlspecialchars($depart['dept_name']) ?>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="<?= $url ?>">
+                                    <a href="#">
                                         <ul class="list-unstyled mb-0">
                                             <?php
                                             $managers = getAllManagersNow($depart['dept_no']);
