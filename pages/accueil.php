@@ -104,26 +104,28 @@ $departements = getAlldepartements();
                     </thead>
                     <tbody>
                         <?php foreach ($departements as $depart) { ?>
-                            <tr>
-                                <td class="fw-bold text-center"><?= $depart['dept_no'] ?></td>
-                                <td><i class="bi bi-buildings icon-dept"></i><?= htmlspecialchars($depart['dept_name']) ?></td>
-                                <td>
-                                    <ul class="list-unstyled mb-0">
-                                        <?php
-                                        $managers = getAllManagersNow($depart['dept_no']);
-                                        if (empty($managers)) {
-                                            echo '<span class="text-muted fst-italic">Aucun manager</span>';
-                                        } else {
-                                            foreach ($managers as $manager) {
-                                                echo '<li><span class="badge rounded-pill badge-manager">' .
-                                                    htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
-                                                    '</span></li>';
+                            <a href="#">
+                                <tr>
+                                    <td class="fw-bold text-center"><?= $depart['dept_no'] ?></td>
+                                    <td><i class="bi bi-buildings icon-dept"></i><?= htmlspecialchars($depart['dept_name']) ?></td>
+                                    <td>
+                                        <ul class="list-unstyled mb-0">
+                                            <?php
+                                            $managers = getAllManagersNow($depart['dept_no']);
+                                            if (empty($managers)) {
+                                                echo '<span class="text-muted fst-italic">Aucun manager</span>';
+                                            } else {
+                                                foreach ($managers as $manager) {
+                                                    echo '<li><span class="badge rounded-pill badge-manager">' .
+                                                        htmlspecialchars($manager['first_name'] . ' ' . $manager['last_name']) .
+                                                        '</span></li>';
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </ul>
-                                </td>
-                            </tr>
+                                            ?>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </a>
                         <?php } ?>
                     </tbody>
                 </table>
