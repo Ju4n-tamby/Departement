@@ -29,7 +29,7 @@ function getAllManagersNow($dept_no)
 
 function getAllEmployees($dept_no)
 {
-    $sql = "SELECT * FROM current_dept_emp_full WHERE dept_no='$dept_no' LIMIT 1000";
+    $sql = "SELECT c.*, e.first_name, e.last_name, e.gender, e.birth_date FROM current_dept_emp c JOIN employees e ON e.emp_no=c.emp_no WHERE dept_no='$dept_no' LIMIT 1000";
     $news_req = mysqli_query(dbconnect(), $sql);
     $employees = array();
     while ($result = mysqli_fetch_assoc($news_req)) {

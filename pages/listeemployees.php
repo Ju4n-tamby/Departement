@@ -31,6 +31,14 @@ $employees = getAllEmployees($dept_no);
         .table-hover tbody tr:hover {
             background-color: #f2f4f6;
         }
+
+        td>a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            width: 100%;
+        }
     </style>
 </head>
 
@@ -64,19 +72,26 @@ $employees = getAllEmployees($dept_no);
                     <tbody>
                         <?php foreach ($employees as $employee) { ?>
                             <tr class="text-start">
-                                <td class="fw-bold text-center"><?= htmlspecialchars($employee['emp_no']) ?></td>
+                                <td class="fw-bold text-center">
+                                    <a href="fiche.php"><?= htmlspecialchars($employee['emp_no']) ?>
+                                    </a>
+                                </td>
                                 <td>
-                                    <i class="bi bi-person text-secondary me-2"></i>
-                                    <?= htmlspecialchars($employee['first_name'] . ' ' . $employee['last_name']) ?>
+                                    <a href="fiche.php">
+                                        <i class="bi bi-person text-secondary me-2"></i>
+                                        <?= htmlspecialchars($employee['first_name'] . ' ' . $employee['last_name']) ?>
+                                    </a>
                                 </td>
                                 <td class="text-center">
-                                    <?php
-                                    echo match ($employee['gender']) {
-                                        'M' => '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>',
-                                        'F' => '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>',
-                                        default => '<i class="bi bi-gender-ambiguous text-secondary fs-5" title="Autre"></i>',
-                                    };
-                                    ?>
+                                    <a href="fiche.php">
+                                        <?php
+                                        echo match ($employee['gender']) {
+                                            'M' => '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>',
+                                            'F' => '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>',
+                                            default => '<i class="bi bi-gender-ambiguous text-secondary fs-5" title="Autre"></i>',
+                                        };
+                                        ?>
+                                    </a>
                                 </td>
                             </tr>
                         <?php } ?>
