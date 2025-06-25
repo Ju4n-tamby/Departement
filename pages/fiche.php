@@ -141,13 +141,13 @@ $departement = getDepartement($employee['dept_no']);
                             }
                         }
                     ?>
-                        <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+                        <nav class="d-flex justify-content-between align-items-center border-bottom py-3">
                             <span class="<?= $classe ?>">
                                 <?= number_format($salaireActuel, 0, ',', ' ') ?>
                                 <?= $variation ?>
                             </span>
                             <span class="text-secondary small fst-italic"><?= $periode ?></span>
-                        </div>
+                        </nav>
                     <?php } ?>
                 </nav>
 
