@@ -110,7 +110,7 @@ $count = countSearched($dept_no, $nom, $age_min, $age_max);
                 </td>
                 <td class="text-center"><a href="fiche.php?emp_no=<?= $emp['emp_no'] ?>" class="text-decoration-none text-dark">
                     <?php
-                    if ($employee['gender'] == 'M') {
+                    if ($emp['gender'] == 'M') {
                       echo '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>';
                     } else {
                       echo '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>';
