@@ -4,6 +4,7 @@ $emp_no = $_GET['emp_no'] ?? null;
 $employee = getEmployee($emp_no);
 $departement = getDepartement($employee['dept_no']);
 $salaires = getSalaires($emp_no);
+$jobs = getJob($emp_no);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -88,10 +89,20 @@ $salaires = getSalaires($emp_no);
               <i class="bi bi-calendar-event me-1"></i><?= date('d/m/Y', strtotime($employee['hire_date'])) ?>
             </span>
           </div>
-          <div class="mb-3">
-            <span class="fw-bold">Emploi :</span>
-            <span class="ms-2"><?= getJob($emp_no) ?></span>
-          </div>
+          <article class="mb-3">
+            <span class="fw-bold">Historique des emplois :</span>
+            <ul class="mt-2 ps-3 list-unstyled">
+              <?php foreach ($jobs as $job): ?>
+                <li>
+                  <?= htmlspecialchars($job['title']) ?>
+                  <span class="text-muted small fst-italic">
+                    (du <?= date('d/m/Y', strtotime($job['from_date'])) ?>
+                    au <?= $job['to_date'] === '9999-01-01' ? 'aujourd\'hui' : date('d/m/Y', strtotime($job['to_date'])) ?>)
+                  </span>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </article>
         </section>
 
         <section class="col-lg-6">
