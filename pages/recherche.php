@@ -110,11 +110,11 @@ $count = countSearched($dept_no, $nom, $age_min, $age_max);
                 </td>
                 <td class="text-center"><a href="fiche.php?emp_no=<?= $emp['emp_no'] ?>" class="text-decoration-none text-dark">
                     <?php
-                    echo match ($emp['gender']) {
-                      'M' => '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>',
-                      'F' => '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>',
-                      default => '<i class="bi bi-gender-ambiguous text-secondary fs-5" title="Autre"></i>',
-                    };
+                    if ($employee['gender'] == 'M') {
+                      echo '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>';
+                    } else {
+                      echo '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>';
+                    }
                     ?></a>
                 </td>
                 <td class="text-center"><a href="fiche.php?emp_no=<?= $emp['emp_no'] ?>" class="text-decoration-none text-dark"><?= $emp['age'] ?> ans</a></td>

@@ -52,11 +52,12 @@ $salaires = getSalaires($emp_no);
           <div class="mb-3">
             <span class="fw-bold text-success">Genre :</span>
             <span class="ms-2">
-              <?= match ($employee['gender']) {
-                'M' => '<i class="bi bi-gender-male text-primary"></i> Homme',
-                'F' => '<i class="bi bi-gender-female text-danger"></i> Femme',
-                default => '<i class="bi bi-gender-ambiguous text-muted"></i> Autre',
-              }; ?>
+              <?php
+              if ($employee['gender'] == 'M') {
+                echo '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>';
+              } else {
+                echo '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>';
+              } ?>
             </span>
           </div>
           <div class="mb-3">

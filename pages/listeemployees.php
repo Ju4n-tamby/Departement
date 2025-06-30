@@ -85,11 +85,11 @@ $nbPages = $totalEmployees / 20;
                     <td class="text-center">
                       <a href="fiche.php?emp_no=<?= $employee['emp_no'] ?>" class="text-decoration-none">
                         <?php
-                        echo match ($employee['gender']) {
-                          'M' => '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>',
-                          'F' => '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>',
-                          default => '<i class="bi bi-gender-ambiguous text-secondary fs-5" title="Autre"></i>',
-                        };
+                        if ($employee['gender'] == 'M') {
+                          echo '<i class="bi bi-gender-male text-primary fs-5" title="Homme"></i>';
+                        } else {
+                          echo '<i class="bi bi-gender-female text-danger fs-5" title="Femme"></i>';
+                        }
                         ?>
                       </a>
                     </td>
