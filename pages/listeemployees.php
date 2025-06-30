@@ -78,7 +78,7 @@ $nbPages = $totalEmployees / 20;
                     <td>
                       <a href="fiche.php?emp_no=<?= $employee['emp_no'] ?>" class="text-decoration-none text-dark d-flex align-items-center">
                         <i class="bi bi-person-circle text-secondary me-2"></i>
-                        <?= htmlspecialchars($employee['first_name'] . ' ' . $employee['last_name']) . '      <<<<' ?>
+                        <?= htmlspecialchars('👉          ' . $employee['first_name'] . ' ' . $employee['last_name']) . '          👈' ?>
                       </a>
                     </td>
 
